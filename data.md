@@ -9,7 +9,7 @@ permalink: /data/
 All acoustic data belong to the **DeuteroNoise Dataset**, an open, calibrated, multi-basin corpus combining hydrophone recordings with AIS vessel data.
 
 ### 📦 Dataset DOI
-(Placeholder — to be updated once Zenodo DOI is available.)
+(to be updated once Zenodo DOI is available.)
 
 ### 🧭 Metadata
 - Hydrophone: Aquarian Audio AS-1, –209.7 dB re 1 V/µPa  

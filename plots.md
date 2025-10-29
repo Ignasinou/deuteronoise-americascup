@@ -1,22 +1,21 @@
 ---
 layout: page
-title: "Interactive Plots"
+title: "Interactive AIS Maps"
 permalink: /plots/
 ---
 
-## Event vs. Baseline Acoustic Levels
+## Comparative Vessel Traffic — America’s Cup vs Baseline
 
-Explore interactive visualizations showing the variation in broadband and third-octave sound pressure levels during the 37th America’s Cup.
-
-### Broadband SPL over Time
-<iframe src="plots/spl_hourly.html" width="100%" height="600"></iframe>
-
-### Third-Octave Bands (63 Hz and 125 Hz)
-<iframe src="plots/third_octave_63_125.html" width="100%" height="600"></iframe>
+<div style="text-align:center;">
+  <iframe src="plots/ais_comparison.html" width="100%" height="650" style="border:none;"></iframe>
+</div>
 
 ---
 
-### Interpretation
-- **Non-event periods (March & July 2024)**: clear diurnal pattern, quieter nights  
-- **Event period (October 2024)**: sustained noise, compressed day–night variability  
-- **Peak levels**: October 18–19 (Final race days)
+## Interactive Maps
+
+### During the America’s Cup (19 Oct 2024)
+<iframe src="plots/heatmap_AC_event.html" width="100%" height="650" style="border:none;"></iframe>
+
+### After the America’s Cup (22 Oct 2024)
+<iframe src="plots/heatmap_AC_post.html" width="100%" height="650" style="border:none;"></iframe>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AIS Comparison — America’s Cup vs Baseline</title>
+<style>
+body {
+  font-family: sans-serif;
+  background-color: #f5faff;
+  text-align: center;
+}
+.slider-container {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  margin: auto;
+}
+.img-comp-container {
+  position: relative;
+  height: 600px;
+  overflow: hidden;
+}
+.img-comp-img {
+  position: absolute;
+  width: 100%;
+  height: auto;
+}
+.img-comp-slider {
+  position: absolute;
+  z-index: 9;
+  cursor: ew-resize;
+  width: 40px;
+  height: 100%;
+  background-color: rgba(255,255,255,0.5);
+  border-left: 3px solid #0077b6;
+}
+</style>
+</head>
+<body>
+
+<h2>AIS Heatmap Comparison</h2>
+<p><em>Slide to compare vessel traffic during the America’s Cup (Oct 2024) vs baseline period (Jul 2024).</em></p>
+
+<div class="slider-container">
+  <div class="img-comp-container" id="imgCompContainer">
+    <iframe src="heatmap_B_prerace_20241019_1200_1400.html" class="img-comp-img" style="width:100%; height:600px; border:none;"></iframe>
+    <iframe src="heatmap_A_baseline_20240718_1200_1400.html" class="img-comp-img" style="width:100%; height:600px; border:none; clip:rect(0,500px,600px,0);"></iframe>
+    <div class="img-comp-slider" id="slider"></div>
+  </div>
+</div>
+
+<script>
+// Simple image comparison slider
+const slider = document.getElementById("slider");
+const container = document.getElementById("imgCompContainer");
+let clicked = false;
+
+slider.addEventListener("mousedown", () => clicked = true);
+window.addEventListener("mouseup", () => clicked = false);
+window.addEventListener("mousemove", e => {
+  if (!clicked) return;
+  const rect = container.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  slider.style.left = `${x}px`;
+  const topIframe = container.querySelectorAll("iframe")[1];
+  topIframe.style.clip = `rect(0, ${x}px, 600px, 0)`;
+});
+</script>
+
+</body>
+</html>
