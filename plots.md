@@ -31,11 +31,11 @@ The first panel below shows two screenshots of aggregated AIS activity with an i
     <strong>Figure 1.</strong> Comparison of AIS vessel density between a baseline day
     (18 July 2024, 12:00–14:00 UTC) and a pre-race period
     (19 October 2024, 12:00–14:00 UTC).  
-    Drag the slider to compare spatial vessel activity around Port Vell and the race perimeter.
+    Drag the vertical slider to reveal one map over the other.
   </figcaption>
 
   <style>
-  .compare-container {
+  .ba-container {
     position: relative;
     max-width: 1000px;
     margin: 1.5rem auto;
@@ -44,44 +44,46 @@ The first panel below shows two screenshots of aggregated AIS activity with an i
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     user-select: none;
   }
-  .compare-container img {
+  .ba-container img {
     display: block;
     width: 100%;
     height: auto;
-    pointer-events: none;
   }
-  .compare-overlay {
+  /* overlay image that will be revealed/hidden */
+  .ba-overlay {
     position: absolute;
     top: 0;
     left: 0;
-    width: 50%; /* Start at midpoint */
+    width: 50%;
     height: 100%;
     overflow: hidden;
   }
-  .compare-overlay img {
+  .ba-overlay img {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: auto;
   }
-  .compare-slider {
+  /* slider line */
+  .ba-slider {
     position: absolute;
     z-index: 2;
     top: 0;
     left: 50%;
-    width: 4px;
+    width: 3px;
     height: 100%;
     background: #0077b6;
     cursor: ew-resize;
   }
-  .compare-handle {
+  /* draggable handle */
+  .ba-handle {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 20px;
-    height: 20px;
+    width: 22px;
+    height: 22px;
     background: #0077b6;
     border: 3px solid white;
     border-radius: 50%;
@@ -100,13 +102,17 @@ The first panel below shows two screenshots of aggregated AIS activity with an i
   .label-right { right: 10px; }
   </style>
 
-  <div class="compare-container" id="compareContainer">
-    <img src="{{ site.baseurl }}/plots/heatmap_A_baseline_20240718_1200_1400.png" alt="Baseline AIS Heatmap">
-    <div class="compare-overlay" id="compareOverlay">
-      <img src="{{ site.baseurl }}/plots/heatmap_B_prerace_20241019_1200_1400.png" alt="Pre-race AIS Heatmap">
+  <div class="ba-container" id="baContainer">
+    <!-- base image -->
+    <img src="{{ site.baseurl }}/plots/heatmap_A_baseline_20240718_1200_1400.png"
+         alt="Baseline AIS Heatmap">
+    <!-- overlay image -->
+    <div class="ba-overlay" id="baOverlay">
+      <img src="{{ site.baseurl }}/plots/heatmap_B_prerace_20241019_1200_1400.png"
+           alt="Pre-race AIS Heatmap">
     </div>
-    <div class="compare-slider" id="compareSlider">
-      <div class="compare-handle"></div>
+    <div class="ba-slider" id="baSlider">
+      <div class="ba-handle"></div>
     </div>
     <div class="label-left">Baseline</div>
     <div class="label-right">Pre-Race</div>
@@ -114,12 +120,12 @@ The first panel below shows two screenshots of aggregated AIS activity with an i
 
   <script>
   document.addEventListener("DOMContentLoaded", function() {
-    const container = document.getElementById("compareContainer");
-    const overlay = document.getElementById("compareOverlay");
-    const slider = document.getElementById("compareSlider");
-    let isDragging = false;
+    const container = document.getElementById("baContainer");
+    const overlay = document.getElementById("baOverlay");
+    const slider = document.getElementById("baSlider");
+    let dragging = false;
 
-    function moveSlider(x) {
+    function move(x) {
       const rect = container.getBoundingClientRect();
       let pos = x - rect.left;
       pos = Math.max(0, Math.min(pos, rect.width));
@@ -127,19 +133,19 @@ The first panel below shows two screenshots of aggregated AIS activity with an i
       slider.style.left = pos + "px";
     }
 
-    const startDrag = e => { e.preventDefault(); isDragging = true; };
-    const stopDrag = () => (isDragging = false);
-    const onDrag = e => {
-      if (!isDragging) return;
-      moveSlider(e.touches ? e.touches[0].clientX : e.clientX);
+    const start = e => { dragging = true; e.preventDefault(); };
+    const stop  = () => dragging = false;
+    const drag  = e => {
+      if (!dragging) return;
+      move(e.touches ? e.touches[0].clientX : e.clientX);
     };
 
-    slider.addEventListener("mousedown", startDrag);
-    window.addEventListener("mouseup", stopDrag);
-    window.addEventListener("mousemove", onDrag);
-    slider.addEventListener("touchstart", startDrag);
-    window.addEventListener("touchend", stopDrag);
-    window.addEventListener("touchmove", onDrag);
+    slider.addEventListener("mousedown", start);
+    window.addEventListener("mouseup", stop);
+    window.addEventListener("mousemove", drag);
+    slider.addEventListener("touchstart", start);
+    window.addEventListener("touchend", stop);
+    window.addEventListener("touchmove", drag);
   });
   </script>
 </figure>
