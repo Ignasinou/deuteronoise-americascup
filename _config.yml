@@ -7,10 +7,10 @@ author:
   name: "Ignasi Nou-Plana"
   email: "ignasi.nou@salle.url.edu"
 
-# Navigation links
 header_pages:
   - about.md
   - data.md
   - plots.md
+  - references.md
 
 github_username: ignasinou

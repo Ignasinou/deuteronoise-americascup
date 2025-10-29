@@ -1,9 +1,21 @@
-# About the Project
+---
+layout: page
+title: "About"
+permalink: /about/
+---
 
-**DeuteroNoise** is a JPI Oceans project (NoiseInTheSea-2022-0011) that studies maritime noise in multiple European basins (Catalan coast, Venice Lagoon, Black Sea).
+## About the Project
 
-This subproject focuses on the **Barcelona case study**, coinciding with the **37th America’s Cup (2024)**. It represents the **first quantified assessment** of underwater acoustic pollution during a major international sailing event.
+**DeuteroNoise** is a JPI Oceans project (*NoiseInTheSea-2022-0011*) studying maritime noise across multiple European basins — the Catalan coast, the Venice Lagoon, and the western Black Sea.
 
-For details, see our open-access papers in:
-- *Applied Acoustics (2025)*
-- *ICASSP (2026)*
+This Barcelona case study focuses on the **37th America’s Cup**, offering the **first quantified assessment of event-related underwater noise** in an urban coastal environment.
+
+The project is conducted by the **Human–Environment Research (HER)** group at *La Salle – Universitat Ramon Llull* (Spain).
+
+---
+
+### Objectives
+
+- Quantify broadband and band-limited sound pressure level (SPL) variations during the event.  
+- Compare event vs non-event acoustic conditions.  
+- Provide open, calibrated data through the DeuteroNoise Dataset.  
