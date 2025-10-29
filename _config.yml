@@ -1,5 +1,16 @@
 title: "DeuteroNoise – America's Cup Soundscapes"
-description: "Quantifying underwater acoustic impacts during the 37th America's Cup in Barcelona."
-theme: jekyll-theme-minimal
-logo: /assets/logo.png
-show_downloads: false
+description: "Quantifying underwater noise during the 37th America's Cup in Barcelona"
+theme: minima
+show_excerpts: true
+
+author:
+  name: "Ignasi Nou-Plana"
+  email: "ignasi.nou@salle.url.edu"
+
+# Navigation links
+header_pages:
+  - about.md
+  - data.md
+  - plots.md
+
+github_username: ignasinou
