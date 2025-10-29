@@ -21,10 +21,10 @@ The upper panel shows two screenshots of aggregated AIS activity with a slider o
 
   <div class="img-comp-container" id="imgCompContainer"
        style="position:relative; height:600px; max-width:1000px; margin:auto; overflow:hidden;">
-    <img src="/plots/heatmap_A_baseline_20240718_1200_1400.png"
-         style="position:absolute; width:100%; height:auto;" />
-    <img src="/plots/heatmap_B_prerace_20241019_1200_1400.png"
-         style="position:absolute; width:100%; height:auto; clip:rect(0,500px,600px,0);" id="topImage"/>
+	<img src="{{ site.baseurl }}/plots/heatmap_A_baseline_20240718_1200_1400.png"
+     	style="position:absolute; width:100%; height:auto;" />
+	<img src="{{ site.baseurl }}/plots/heatmap_B_prerace_20241019_1200_1400.png"
+    	 style="position:absolute; width:100%; height:auto; clip:rect(0,500px,600px,0);" id="topImage"/>
     <div id="slider"
          style="position:absolute; z-index:9; cursor:ew-resize; width:40px; height:100%;
                 background-color:rgba(255,255,255,0.5); border-left:3px solid #0077b6;"></div>
@@ -61,9 +61,9 @@ window.addEventListener("mousemove", e => {
   </figcaption>
 
   <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:10px;">
-    <iframe src="/plots/heatmap_B_prerace_20241019_1200_1400.html"
+    <iframe src="{{ site.baseurl }}/plots/heatmap_B_prerace_20241019_1200_1400.html"
             width="49%" height="650" style="border:none; border-radius:10px;"></iframe>
-    <iframe src="/plots/heatmap_A_baseline_20240718_1200_1400.html"
+    <iframe src="{{ site.baseurl }}/plots/heatmap_A_baseline_20240718_1200_1400.html"
             width="49%" height="650" style="border:none; border-radius:10px;"></iframe>
   </div>
 </figure>
