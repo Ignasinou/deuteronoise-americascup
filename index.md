@@ -19,7 +19,7 @@ and time-synchronised AIS data from the [**DeuteroNoise Dataset**](https://githu
     Each coloured trajectory represents a unique vessel track derived from the DeuteroNoise-synchronised AIS dataset.
   </figcaption>
   <iframe
-    src="plots/heatmap_C_race_20241019_1400_1600_static2.html"
+    src="plots/heatmap_C_race_20241019_1400_1600_static3.html"
     width="100%"
     height="650"
     style="border:none; border-radius:12px; margin-top:10px;">
