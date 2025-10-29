@@ -11,125 +11,132 @@ The first panel below shows two screenshots of aggregated AIS activity with an i
 
 ---
 
-
 ## 🔹 Visual Comparison
 
 <figure style="text-align:center;">
-  <figcaption style="margin-bottom:0.5rem;">
-    <strong>Figure 1.</strong> Comparison of AIS vessel density between a baseline day
-    (18 July 2024, 12:00–14:00 UTC) and a pre-race period
-    (19 October 2024, 12:00–14:00 UTC).  
-    Drag the white slider to compare both maps.
+  <figcaption>
+    <strong>Figure 1.</strong> Baseline (18 Jul 2024 12–14 UTC) vs Pre-race (19 Oct 2024 12–14 UTC).  
+    Drag the white bar to compare the two AIS heatmaps.
   </figcaption>
 
   <style>
-  * { box-sizing: border-box; }
-  .img-comp-container {
-    position: relative;
-    max-width: 1000px;  /* set this to your PNG width */
-    margin: 1.5rem auto;
-    overflow: hidden;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  }
-  .img-comp-img {
-    position: absolute;
-    width: auto;
-    height: auto;
-    overflow: hidden;
-  }
-  .img-comp-img img {
-    display: block;
-    vertical-align: middle;
-    width: 100%;
-    height: auto;
-  }
-  .img-comp-slider {
-    position: absolute;
-    z-index: 9;
-    cursor: ew-resize;
-    width: 3px;
-    height: 100%;
-    background-color: #ffffff;
-    opacity: 0.8;
-    top: 0;
-    left: 50%;
-  }
-  .slider-handle {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 22px;
-    height: 22px;
-    background: #ffffff;
-    border-radius: 50%;
-    border: 2px solid #0077b6;
-    box-shadow: 0 0 6px rgba(0,0,0,0.3);
-  }
-  .ba-label {
-    position: absolute;
-    top: 10px;
-    background: rgba(255,255,255,0.8);
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-weight: 600;
-    font-size: 0.9rem;
-  }
-  .ba-left { left: 10px; }
-  .ba-right { right: 10px; }
+    * {box-sizing:border-box;}
+    .img-comp-container {
+      position: relative;
+      max-width: 1000px;
+      margin: 1.5rem auto;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .img-comp-img {
+      position: absolute;
+      width: 100%;
+      height: auto;
+      overflow: hidden;
+    }
+    .img-comp-img img {
+      display: block;
+      width: 100%;
+      height: auto;
+      vertical-align: middle;
+    }
+    .img-comp-slider {
+      position: absolute;
+      z-index: 9;
+      cursor: ew-resize;
+      width: 3px;
+      height: 100%;
+      background-color: #ffffff;
+      opacity: 0.9;
+      top: 0;
+      left: 50%;
+    }
+    .slider-handle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 22px;
+      height: 22px;
+      background: #ffffff;
+      border-radius: 50%;
+      border: 2px solid #0077b6;
+      box-shadow: 0 0 6px rgba(0,0,0,0.3);
+    }
+    .ba-label {
+      position: absolute;
+      top: 10px;
+      background: rgba(255,255,255,0.8);
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    .ba-left { left: 10px; }
+    .ba-right { right: 10px; }
   </style>
 
   <div class="img-comp-container" id="compContainer">
-    <!-- bottom image -->
+    <!-- Bottom (baseline) image -->
     <div class="img-comp-img">
       <img src="{{ site.baseurl }}/plots/heatmap_A_baseline_20240718_1200_1400.png" alt="Baseline AIS Heatmap">
     </div>
-    <!-- top image -->
+
+    <!-- Top (overlay) image -->
     <div class="img-comp-img img-comp-overlay" id="overlayImg">
       <img src="{{ site.baseurl }}/plots/heatmap_B_prerace_20241019_1200_1400.png" alt="Pre-race AIS Heatmap">
     </div>
+
+    <!-- Slider + handle -->
     <div class="img-comp-slider" id="compSlider">
       <div class="slider-handle"></div>
     </div>
+
     <div class="ba-label ba-left">Baseline</div>
     <div class="ba-label ba-right">Pre-Race</div>
   </div>
 
   <script>
-  // Adapted from W3Schools Image Comparison example
-  document.addEventListener("DOMContentLoaded", function() {
-    const overlay = document.getElementById("overlayImg");
-    const slider = document.getElementById("compSlider");
-    const container = document.getElementById("compContainer");
-    let clicked = false;
-    let w = container.offsetWidth;
-    overlay.style.width = (w / 2) + "px";
-    slider.style.left = (w / 2) + "px";
+    // ---- exact logic from W3Schools ----
+    document.addEventListener("DOMContentLoaded",function(){
+      const overlay=document.getElementById("overlayImg");
+      const slider=document.getElementById("compSlider");
+      const container=document.getElementById("compContainer");
+      let clicked=false;
 
-    function slide(x) {
-      const rect = container.getBoundingClientRect();
-      let pos = x - rect.left;
-      if (pos < 0) pos = 0;
-      if (pos > rect.width) pos = rect.width;
-      overlay.style.width = pos + "px";
-      slider.style.left = pos + "px";
-    }
+      // set overlay width & slider position to middle
+      function init() {
+        const w=container.offsetWidth;
+        overlay.style.width=(w/2)+"px";
+        slider.style.left=(w/2)+"px";
+      }
+      init(); // initial placement
+      window.addEventListener("resize",init); // maintain on resize
 
-    const startSlide = e => { e.preventDefault(); clicked = true; };
-    const stopSlide = () => clicked = false;
-    const moveSlide = e => {
-      if (!clicked) return;
-      slide(e.touches ? e.touches[0].clientX : e.clientX);
-    };
+      function slide(x){
+        const rect=container.getBoundingClientRect();
+        let pos=x-rect.left;
+        if(pos<0)pos=0;
+        if(pos>rect.width)pos=rect.width;
+        overlay.style.width=pos+"px";
+        slider.style.left=pos+"px";
+      }
 
-    slider.addEventListener("mousedown", startSlide);
-    window.addEventListener("mouseup", stopSlide);
-    window.addEventListener("mousemove", moveSlide);
-    slider.addEventListener("touchstart", startSlide);
-    window.addEventListener("touchend", stopSlide);
-    window.addEventListener("touchmove", moveSlide);
-  });
+      const start=e=>{e.preventDefault();clicked=true;};
+      const stop=()=>clicked=false;
+      const move=e=>{
+        if(!clicked)return;
+        slide(e.touches?e.touches[0].clientX:e.clientX);
+      };
+
+      slider.addEventListener("mousedown",start);
+      window.addEventListener("mouseup",stop);
+      window.addEventListener("mousemove",move);
+      slider.addEventListener("touchstart",start);
+      window.addEventListener("touchend",stop);
+      window.addEventListener("touchmove",move);
+    });
   </script>
 </figure>
 
