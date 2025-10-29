@@ -31,65 +31,85 @@ The first panel below shows two screenshots of aggregated AIS activity with an i
     <strong>Figure 1.</strong> Comparison of AIS vessel density between a baseline day
     (18 July 2024, 12:00–14:00 UTC) and a pre-race period
     (19 October 2024, 12:00–14:00 UTC).  
-    Use the slider to reveal differences in spatial vessel activity around Port Vell and the race perimeter.
+    Drag the slider to compare spatial vessel activity around Port Vell and the race perimeter.
   </figcaption>
 
   <style>
-  .img-compare-container {
+  .compare-container {
     position: relative;
-    width: 100%;
     max-width: 1000px;
     margin: 1.5rem auto;
     overflow: hidden;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    user-select: none;
   }
-  .img-compare-container img {
+  .compare-container img {
     display: block;
     width: 100%;
     height: auto;
-    user-select: none;
     pointer-events: none;
   }
-  .img-compare-overlay {
+  .compare-overlay {
     position: absolute;
     top: 0;
     left: 0;
+    width: 50%; /* Start at midpoint */
+    height: 100%;
     overflow: hidden;
-    width: 50%; /* initial slider position */
   }
-  .img-compare-slider {
+  .compare-overlay img {
     position: absolute;
-    z-index: 10;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+  }
+  .compare-slider {
+    position: absolute;
+    z-index: 2;
     top: 0;
     left: 50%;
-    transform: translateX(-50%);
     width: 4px;
     height: 100%;
     background: #0077b6;
     cursor: ew-resize;
   }
-  .img-compare-label {
+  .compare-handle {
     position: absolute;
-    top: 15px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    background: rgba(255,255,255,0.7);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    background: #0077b6;
+    border: 3px solid white;
+    border-radius: 50%;
+    box-shadow: 0 0 6px rgba(0,0,0,0.3);
+  }
+  .label-left, .label-right {
+    position: absolute;
+    top: 10px;
+    background: rgba(255,255,255,0.8);
     padding: 4px 8px;
     border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.9rem;
   }
-  .label-left { left: 15px; }
-  .label-right { right: 15px; }
+  .label-left { left: 10px; }
+  .label-right { right: 10px; }
   </style>
 
-  <div class="img-compare-container" id="compareContainer">
+  <div class="compare-container" id="compareContainer">
     <img src="{{ site.baseurl }}/plots/heatmap_A_baseline_20240718_1200_1400.png" alt="Baseline AIS Heatmap">
-    <div class="img-compare-overlay" id="compareOverlay">
+    <div class="compare-overlay" id="compareOverlay">
       <img src="{{ site.baseurl }}/plots/heatmap_B_prerace_20241019_1200_1400.png" alt="Pre-race AIS Heatmap">
     </div>
-    <div class="img-compare-slider" id="compareSlider"></div>
-    <div class="img-compare-label label-left">Baseline</div>
-    <div class="img-compare-label label-right">Pre-Race</div>
+    <div class="compare-slider" id="compareSlider">
+      <div class="compare-handle"></div>
+    </div>
+    <div class="label-left">Baseline</div>
+    <div class="label-right">Pre-Race</div>
   </div>
 
   <script>
@@ -99,22 +119,27 @@ The first panel below shows two screenshots of aggregated AIS activity with an i
     const slider = document.getElementById("compareSlider");
     let isDragging = false;
 
-    const moveSlider = (x) => {
+    function moveSlider(x) {
       const rect = container.getBoundingClientRect();
       let pos = x - rect.left;
       pos = Math.max(0, Math.min(pos, rect.width));
       overlay.style.width = pos + "px";
       slider.style.left = pos + "px";
+    }
+
+    const startDrag = e => { e.preventDefault(); isDragging = true; };
+    const stopDrag = () => (isDragging = false);
+    const onDrag = e => {
+      if (!isDragging) return;
+      moveSlider(e.touches ? e.touches[0].clientX : e.clientX);
     };
 
-    slider.addEventListener("mousedown", () => isDragging = true);
-    window.addEventListener("mouseup", () => isDragging = false);
-    window.addEventListener("mousemove", (e) => { if (isDragging) moveSlider(e.clientX); });
-    slider.addEventListener("touchstart", () => isDragging = true);
-    window.addEventListener("touchend", () => isDragging = false);
-    window.addEventListener("touchmove", (e) => {
-      if (isDragging && e.touches.length) moveSlider(e.touches[0].clientX);
-    });
+    slider.addEventListener("mousedown", startDrag);
+    window.addEventListener("mouseup", stopDrag);
+    window.addEventListener("mousemove", onDrag);
+    slider.addEventListener("touchstart", startDrag);
+    window.addEventListener("touchend", stopDrag);
+    window.addEventListener("touchmove", onDrag);
   });
   </script>
 </figure>
