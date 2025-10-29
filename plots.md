@@ -15,7 +15,7 @@ permalink: /plots/
 ## Interactive Maps
 
 ### During the America’s Cup (19 Oct 2024)
-<iframe src="plots/heatmap_AC_event.html" width="100%" height="650" style="border:none;"></iframe>
+<iframe src="plots/heatmap_B_prerace_20241019_1200_1400.html" width="100%" height="650" style="border:none;"></iframe>
 
 ### After the America’s Cup (22 Oct 2024)
-<iframe src="plots/heatmap_AC_post.html" width="100%" height="650" style="border:none;"></iframe>
+<iframe src="plots/heatmap_A_baseline_20240718_1200_1400.html" width="100%" height="650" style="border:none;"></iframe>
