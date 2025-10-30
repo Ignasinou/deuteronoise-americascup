@@ -1,17 +1,22 @@
 ---
 layout: home
-title: "DeuteroNoise – America's Cup"
 ---
 
 Welcome to the **DeuteroNoise – America's Cup Soundscapes** project.
 
 This initiative quantifies the **underwater acoustic footprint** of the  
 **37th America’s Cup (Barcelona, 2024)** using calibrated hydrophone recordings  
-and time-synchronised AIS data from the [**DeuteroNoise Dataset**](https://github.com/Ignasinou/deuteronoise-dataset-preview).
+and time-synchronised AIS vessel data from the  
+[**DeuteroNoise Dataset**](https://github.com/Ignasinou/deuteronoise-dataset-preview).
+
+Explore:
+- [Interactive acoustic plots](plots.md)  
+- [Dataset access and metadata](data.md)  
+- [References and publications](references.md)
 
 ---
 
-## 🗺️ AIS Vessel Tracks — Final Race (19 October 2024, 14:00–16:00 UTC)
+## AIS Vessel Tracks — Final Race (19 October 2024, 14:00–16:00 UTC)
 
 <figure style="text-align:center;">
   <figcaption>
@@ -25,13 +30,9 @@ and time-synchronised AIS data from the [**DeuteroNoise Dataset**](https://githu
     style="border:none; border-radius:12px; margin-top:10px;">
   </iframe>
 </figure>
+
 ---
 
-During the final race weekend, broadband SPLs rose by **up to 20 dB re 1 µPa rms**,  
-and natural day–night cycles flattened due to sustained vessel activity  
-from support fleets and spectator boats.
+During the final race weekend, **broadband sound pressure levels (20 Hz–20 kHz)** at the Espai Vela site increased by approximately **5–8 dB re 1 µPa rms** compared with baseline conditions.  
+The natural day–night contrast observed earlier in July (about 5 dB difference) nearly disappeared, reflecting continuous vessel activity from support, security, and spectator fleets operating throughout the event.
 
-Explore:
-- 📊 [Interactive acoustic plots](plots.md)
-- 🌍 [Dataset access and metadata](data.md)
-- 📚 [References and publications](references.md)
