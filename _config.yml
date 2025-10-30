@@ -13,4 +13,7 @@ header_pages:
   - plots.md
   - references.md
 
+include:
+  - plots
+
 github_username: ignasinou
