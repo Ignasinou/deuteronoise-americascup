@@ -13,13 +13,25 @@ The first panel below shows two screenshots of aggregated AIS activity with an i
 
 ## 🔹 Visual Comparison (baseline vs pre-race)
 
-<iframe
-  src="{{ site.baseurl }}/plots/ais_compare.html"
-  width="100%"
-  height="720"
-  style="border:none; border-radius:10px; overflow:hidden;"
-  loading="lazy">
-</iframe>
+<div style="display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-top:1rem;">
+  <figure style="flex:1 1 480px; text-align:center;">
+    <img src="{{ site.baseurl }}/plots/heatmap_A_baseline_20240718_1200_1400.png"
+         alt="Baseline AIS Heatmap"
+         style="width:100%; height:auto; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.1);" />
+    <figcaption style="margin-top:0.5rem; font-size:0.9rem; color:#333;">
+      <strong>Baseline</strong> — 18 July 2024 (12:00–14:00 UTC)
+    </figcaption>
+  </figure>
+
+  <figure style="flex:1 1 480px; text-align:center;">
+    <img src="{{ site.baseurl }}/plots/heatmap_B_prerace_20241019_1200_1400.png"
+         alt="Pre-race AIS Heatmap"
+         style="width:100%; height:auto; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.1);" />
+    <figcaption style="margin-top:0.5rem; font-size:0.9rem; color:#333;">
+      <strong>Pre-race</strong> — 19 October 2024 (12:00–14:00 UTC)
+    </figcaption>
+  </figure>
+</div>
 
 ---
 
