@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>AIS comparison</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #f5faff; font-family: system-ui, sans-serif; }
+    .img-comp-container {
+      position: relative;
+      width: min(1000px, 100vw);
+      margin: 20px auto;
+      overflow: hidden;
+      border-radius: 10px;
+      background: #000;
+    }
+    .img-comp-img {
+      position: absolute;
+      width: 100%;
+      height: auto;
+      overflow: hidden;
+      top: 0;
+      left: 0;
+    }
+    .img-comp-img img {
+      display: block;
+      width: 100%;
+      height: auto;
+      user-select: none;
+      pointer-events: none;
+    }
+    .img-comp-slider {
+      position: absolute;
+      z-index: 9;
+      cursor: ew-resize;
+      width: 3px;
+      height: 100%;
+      background-color: #ffffff;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .handle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 22px;
+      height: 22px;
+      background: #fff;
+      border-radius: 50%;
+      border: 2px solid #0077b6;
+      box-shadow: 0 0 8px rgba(0,0,0,0.35);
+    }
+    .label {
+      position: absolute;
+      top: 10px;
+      background: rgba(255,255,255,0.85);
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    .label-left { left: 10px; }
+    .label-right { right: 10px; }
+  </style>
+</head>
+<body>
+
+<div class="img-comp-container" id="compContainer">
+  <!-- bottom image -->
+  <div class="img-comp-img">
+    <img src="heatmap_A_baseline_20240718_1200_1400.png" alt="Baseline AIS">
+  </div>
+
+  <!-- top image (the one we clip) -->
+  <div class="img-comp-img img-comp-overlay" id="imgOverlay">
+    <img src="heatmap_B_prerace_20241019_1200_1400.png" alt="Pre-race AIS">
+  </div>
+
+  <!-- slider -->
+  <div class="img-comp-slider" id="imgSlider">
+    <div class="handle" aria-hidden="true"></div>
+  </div>
+
+  <div class="label label-left">Baseline</div>
+  <div class="label label-right">Pre-race</div>
+</div>
+
+<script>
+  // this is the real w3schools-style logic
+  (function() {
+    const container = document.getElementById("compContainer");
+    const overlay   = document.getElementById("imgOverlay");
+    const slider    = document.getElementById("imgSlider");
+    let clicked = false;
+
+    function setStart() {
+      const w = container.offsetWidth;
+      overlay.style.width = (w / 2) + "px";
+      slider.style.left   = (w / 2) + "px";
+    }
+
+    function slide(x) {
+      const rect = container.getBoundingClientRect();
+      let pos = x - rect.left;
+      if (pos < 0) pos = 0;
+      if (pos > rect.width) pos = rect.width;
+      overlay.style.width = pos + "px";
+      slider.style.left   = pos + "px";
+    }
+
+    function startDrag(e) {
+      e.preventDefault();
+      clicked = true;
+    }
+    function stopDrag() { clicked = false; }
+    function onDrag(e) {
+      if (!clicked) return;
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      slide(clientX);
+    }
+
+    window.addEventListener("load", setStart);
+    window.addEventListener("resize", setStart);
+
+    slider.addEventListener("mousedown", startDrag);
+    window.addEventListener("mouseup",   stopDrag);
+    window.addEventListener("mousemove", onDrag);
+
+    slider.addEventListener("touchstart", startDrag, {passive:false});
+    window.addEventListener("touchend",   stopDrag);
+    window.addEventListener("touchmove",  onDrag,    {passive:false});
+  })();
+</script>
+
+</body>
+</html>
